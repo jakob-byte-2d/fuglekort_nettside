@@ -1,0 +1,30 @@
+/* fuglekort.no: forsiden og personvernerklæringen. Fontene ligger i appens mappe (/app/fonts/, SIL OFL 1.1),
+   så ingenting hentes fra andre nettsteder. */
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-display:swap;font-weight:400;src:url(/app/fonts/familjen-grotesk-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-display:swap;font-weight:600;src:url(/app/fonts/familjen-grotesk-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-display:swap;font-weight:700;src:url(/app/fonts/familjen-grotesk-latin-700-normal.woff2) format('woff2')}
+:root{--bg:#e1e8e0;--surface:#f7f9f4;--ink:#15251e;--muted:#586a61;--line:#c6d2c8;--spruce:#0f4a36;--on-spruce:#f3f8f2;
+  --font:"Familjen Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--font);-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:30px;line-height:1.15;margin:0 0 8px;letter-spacing:-.01em}
+h2{font-size:21px;margin:36px 0 8px;scroll-margin-top:16px}
+h3{font-size:17px;margin:22px 0 4px}
+p,li{margin:0 0 10px}
+ul{padding-left:22px;margin:0 0 12px}
+a{color:var(--spruce);font-weight:600;text-underline-offset:2px}
+.lead{font-size:19px;color:var(--muted);margin-bottom:22px}
+.liten{font-size:14px;color:var(--muted)}
+.kort{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:16px 0}
+.knapper{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.knapp{display:inline-block;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none}
+.knapp.pri{background:var(--spruce);border-color:var(--spruce);color:var(--on-spruce)}
+.tabell{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 16px}
+.tabell th,.tabell td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+.tabell th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+@media (max-width:560px){.tabell thead{display:none}.tabell,.tabell tbody,.tabell tr,.tabell td{display:block;width:100%}
+  .tabell tr{border-bottom:1px solid var(--line);padding:6px 0}.tabell td{border:0;padding:3px 0}
+  .tabell td:first-child{font-weight:700}.tabell td[data-t]::before{content:attr(data-t) ": ";color:var(--muted);font-weight:600}}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line)}
