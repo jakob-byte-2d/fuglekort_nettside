@@ -8,6 +8,7 @@ Nettstedet **https://fuglekort.no**, servert med GitHub Pages fra `main`, rot (`
 | `/app/` | Play-versjonen av Hagefugler (Google Play, TWA med pakkenavnet `no.fuglekort.hagefugler`). **Lages av `build.py --play` i repoet fuglekort; ikke endre den her.** |
 | `/personvern/` | Personvernerklæringen for appen og bestillingslisten. Lenket fra appen og fra Play-oppføringen. `#slett` er siden Google krever for sletting, `#bestillingslisten` er delen om lista. |
 | `/vilkar/` | Vilkårene for bestillingslisten: pris, frakt, ingen garanti for trykk, Vipps, angrerett og selgeropplysninger. |
+| `google-apps-script/bekreftelse.gs` | Skriptet som sender bekreftelsen på e-post fra post.fuglekort@gmail.com. Ligger som Google Apps Script i den kontoen; denne kopien har ikke den hemmelige koden. |
 | `supabase/forhandsbestillinger.sql` | Tabellen, tilgangsreglene, telleren og Vipps-lista for bestillingslisten. Kjøres i Supabase-prosjektet til appen. |
 | `/.well-known/assetlinks.json` | Kobler domenet til Android-appen. Har SHA-256 for opplastingsnøkkelen fra PWABuilder og de tre fra Play Console → Appsignering → «Kopier alle sertifikatfingeravtrykk» (appsigneringsnøklene til Google). Mangler Googles nøkkel, viser appen en adresselinje øverst. Bare gyldige fingeravtrykk i lista. |
 | `side.css` | Stilen til personvernerklæringen og vilkårene, i samme stil som hjemmesiden (bare systemfonter) |
@@ -41,3 +42,14 @@ Folk setter seg på listen i bestillingsdialogen på forsiden uten å betale. Pr
 - **Status:** endre `status` i tabellen `forhandsbestillinger` til `betalt`, `sendt` eller `trukket`. Trukne påmeldinger telles ikke med.
 - **Sletting:** påmeldinger som ikke er trykket etter 12 måneder skal slettes, og alt slettes hvis det ikke blir trykk. SQL-en står nederst i fila.
 - **Nettsiden** kan bare legge inn påmeldinger og hente telleren. Navn, e-post, mobil og adresse kan ikke leses derfra.
+
+## Bekreftelse på e-post
+
+Hver ny påmelding får en bekreftelse fra post.fuglekort@gmail.com. Supabase sender påmeldingen til et Google Apps Script i den kontoen, og skriptet sender e-posten med Gmail (høyst 100 mottakere per dag).
+
+1. **Skriptet:** logget inn som post.fuglekort@gmail.com → script.google.com → Nytt prosjekt → lim inn `google-apps-script/bekreftelse.gs` → sett `HEMMELIG` til en lang, tilfeldig kode → lagre.
+2. **Tillatelse og test:** velg `testEpost` i funksjonslisten → Kjør → gi tillatelse. En testbekreftelse kommer til post.fuglekort@gmail.com.
+3. **Publiser:** Distribuer → Ny distribusjon → Nettapp → Kjør som: meg → Hvem har tilgang: Alle → Distribuer. Kopier adressen som slutter på `/exec`.
+4. **Webhook i Supabase:** Database → Webhooks → ny webhook på tabellen `forhandsbestillinger`, hendelse Insert, HTTP Request, POST til `<adressen>?hemmelig=<koden>`, tidsavbrudd 5000 ms.
+
+Endrer du skriptet senere: Distribuer → Administrer distribusjoner → rediger → Ny versjon. Da beholder du samme adresse.
