@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Personvernerklæring – Hagefugler</title>
+<meta name="description" content="Hva appen Hagefugler lagrer, hvem som kan se det, og hvordan du sletter det.">
+<meta name="theme-color" content="#f6f3e9">
+<link rel="icon" href="/app/icons/icon-192.png">
+<link rel="stylesheet" href="/side.css">
+</head>
+<body>
+<header class="topp"><a class="wordmark" href="/" aria-label="fuglekort.no, forsiden">fuglekort<span class="brand-dot">.no</span></a><a class="til-appen" href="/app/">Åpne appen →</a></header>
+<main>
+  <h1>Personvernerklæring for Hagefugler</h1>
+  <p class="liten">Sist endret 3. november 2026</p>
+
+  <div class="kort">
+    <p><b>Kort fortalt:</b> Appen virker uten konto, og det du registrerer, lagres på telefonen din. Bare hvis du slår på deling, sendes noe til databasen bak ledertavlen. Brukernavnet og tallene dine står da på en åpen ledertavle. Vi ber aldri om navn, e-post, telefonnummer eller posisjon, og det er ingen reklame, sporing eller analyseverktøy i appen. Du kan slette alt du har delt, når du vil.</p>
+  </div>
+
+  <h2 id="ansvarlig">Hvem som er ansvarlig</h2>
+  <p>Hagefugler er appen på Google Play og nettversjonene på fuglekort.no/app og jakob-byte-2d.github.io/fuglekort. Den lages av Jakob Myking, som er behandlingsansvarlig. Kontakt: <a href="mailto:post.fuglekort@gmail.com">post.fuglekort@gmail.com</a>.</p>
+
+  <h2 id="uten-deling">Når du ikke deler</h2>
+  <p>Observasjonene dine, tellingene, frøene, kjøpene i Frøbutikken, livslisten, favorittene, innstillingene og eventuelle andre brukere på telefonen lagres bare i lageret på telefonen. Ingenting av det sendes til oss.</p>
+  <p>Avinstallerer du appen, eller sletter du nettstedsdataene, forsvinner dataene fra telefonen. Vil du ta vare på dem, tar du en sikkerhetskopi først: Min fugleliste → Profil → Lagring.</p>
+  <p>Når appen og sidene lastes ned, ser GitHub, som driver nettstedet, IP-adressen din, slik alle nettsteder gjør (se <a href="#databehandlere">Hvem som behandler dataene for oss</a>).</p>
+
+  <h2 id="med-deling">Når du deler: hva som lagres</h2>
+  <p>Slår du på «Del med ledertavlen og statistikken», får du en anonym bruker i databasen vår. Den har bare en tilfeldig ID, ingen e-post eller passord. Dette lagres:</p>
+  <table class="tabell">
+    <thead><tr><th>Hva</th><th>Innhold</th><th>Hvem kan se det</th></tr></thead>
+    <tbody>
+      <tr><td>Den anonyme brukeren</td><td data-t="Innhold">En tilfeldig ID og en innloggingsøkt. Økta har tidspunktene for når den ble laget og sist fornyet, og kan ha med IP-adressen og nettlesertypen fra da. Den slettes sammen med brukeren. Det føres ingen egen innloggingslogg i databasen</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Ledertavlen</td><td data-t="Innhold">Brukernavnet du velger, frø, antall fuglearter, antall observasjonsdager, tittel, om artslista di vises, om du er merket for uvanlig mange frø eller arter på kort tid, og når raden sist ble oppdatert</td><td data-t="Hvem kan se det">Alle. Tavla er åpen og kan leses av alle som kjenner adressen til databasen, ikke bare av dem som bruker appen</td></tr>
+      <tr><td>Artene du har sett</td><td data-t="Innhold">Hvilke arter du har registrert, og hvilke datoer</td><td data-t="Hvem kan se det">Datoene ser bare vi. Artene, uten datoer, kan alle se når de trykker på navnet ditt, med mindre du slår av «Vis artslista mi». Antallet arter i uka, måneden og året står på artstavla</td></tr>
+      <tr><td>Profil</td><td data-t="Innhold">Postnummer hvis du oppgir det, appversjon, valgt bildesett og bakside, og når profilen ble laget og endret</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Tellinger</td><td data-t="Innhold">Start og slutt, område hvis du skriver det inn, og høyeste antall av hver art</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Kjøp i Frøbutikken</td><td data-t="Innhold">Hva du har kjøpt for frø (ikke ekte penger), prisen i frø og datoen</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Frø per time</td><td data-t="Innhold">Antall frø og arter, lagret hver time, for uke-, måneds- og årstavla</td><td data-t="Hvem kan se det">Bare vi. Tavlene viser resultatet</td></tr>
+      <tr><td>Premier</td><td data-t="Innhold">Kommer du blant de tre beste i en uke, måned eller et år: plassen, brukernavnet ditt da, frøene i perioden og premien</td><td data-t="Hvem kan se det">Alle</td></tr>
+      <tr><td>Grupper</td><td data-t="Innhold">Navnet og koden på grupper du lager, hvem som laget dem, hvem som er med og når de ble med</td><td data-t="Hvem kan se det">Medlemmene, som også ser det samme om hverandre som på tavla. Den som har koden, ser navnet og antall medlemmer</td></tr>
+      <tr><td>Rapporter</td><td data-t="Innhold">Rapporterer du et brukernavn: hvem som rapporterte, hvem det gjaldt og navnet</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Merking</td><td data-t="Innhold">Får brukeren uvanlig mange frø eller arter på kort tid: tidspunkt, grunn og tall</td><td data-t="Hvem kan se det">Bare vi. Tavla viser et merke</td></tr>
+    </tbody>
+  </table>
+  <p>Favorittene dine lagres ikke hos oss. Lista sendes bare med når tavla for favorittene hentes. Et brukernavn som er sperret etter rapporter, lagres uten kobling til noen, så det ikke kan tas i bruk igjen.</p>
+
+  <h2 id="formal">Hvorfor, og grunnlaget for det</h2>
+  <ul>
+    <li><b>Ledertavlen, artstavla, profilen, gruppene og favorittene:</b> for å vise hvordan du ligger an.</li>
+    <li><b>Statistikk over hagefugler i Norge:</b> hvilke arter som er sett, når, og etter postnummer. Statistikken bruker vi bare som samlede tall der ingen enkeltpersoner kan kjennes igjen. Observasjonene er ikke knyttet til navn eller e-post, men til den tilfeldige ID-en. De er derfor ikke anonyme i lovens forstand.</li>
+    <li><b>Å hindre juks og misbruk:</b> merking av uvanlig aktivitet, rapporter og filteret for brukernavn.</li>
+  </ul>
+  <p>Grunnlaget er samtykket ditt (personvernforordningen artikkel 6 nr. 1 bokstav a). Du gir det når du slår på deling, og du trekker det tilbake når du vil med «Slett meg». Det som er gjort før du trakk samtykket, er fortsatt lovlig.</p>
+
+  <h2 id="databehandlere">Hvem som behandler dataene for oss</h2>
+  <ul>
+    <li><b>Supabase</b> (Supabase Inc.) driver databasen og den anonyme innloggingen, som databehandler etter en databehandleravtale. Dataene lagres i EU, i Supabase sitt datasenter i Irland. Supabase lagrer også tekniske logger over forespørslene, med blant annet IP-adresse og tidspunkt. Loggene slettes automatisk etter ett døgn.</li>
+    <li><b>GitHub</b> (GitHub Inc.) driver nettstedet fuglekort.no og jakob-byte-2d.github.io, og ser IP-adressen din når appen og sidene hentes. Se <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHubs personvernerklæring</a>.</li>
+    <li><b>Google Play</b> står for installasjon og oppdatering av Play-appen, etter Googles egne vilkår. Vi får bare samlede tall fra Google, som antall installasjoner.</li>
+  </ul>
+  <p>Supabase og GitHub er amerikanske selskaper. Databehandleravtalen med Supabase inneholder EUs standardavtaler. Kan opplysninger bli overført til USA, skjer det etter EUs standardavtaler eller EU–USA-rammeverket for personvern (Data Privacy Framework). Vi selger ikke data, og vi deler dem ikke med andre.</p>
+
+  <h2 id="lagringstid">Hvor lenge vi lagrer</h2>
+  <p>Det du har delt, lagres til du sletter det. Når du sletter deg, forsvinner alt i tabellen over, med disse unntakene:</p>
+  <ul>
+    <li>Premielistene beholder plassen, frøene og premien, men uten navn og uten kobling til deg.</li>
+    <li>Et brukernavn som er sperret etter rapporter, blir stående uten kobling til noen.</li>
+    <li>De tekniske loggene hos Supabase slettes automatisk, se over.</li>
+  </ul>
+  <p>Avinstallerer du appen uten å slette deg først, ligger dataene der til du ber oss slette dem (se <a href="#slett">Slik sletter du dataene dine</a>).</p>
+
+  <h2 id="barn">Barn</h2>
+  <p>Du må være 13 år for å dele. Yngre barn kan bruke appen uten å dele, for eksempel med en egen barnebruker på foreldrenes telefon. Brukertypen «Barn» deler ikke. Foreldre kan be oss slette det et barn har delt.</p>
+
+  <h2 id="rettigheter">Rettighetene dine</h2>
+  <p>Etter personvernforordningen (GDPR) har du rett til</p>
+  <ul>
+    <li>innsyn i hva vi har lagret om deg (artikkel 15)</li>
+    <li>å få rettet feil (artikkel 16)</li>
+    <li>å få slettet det (artikkel 17)</li>
+    <li>å få begrenset bruken (artikkel 18)</li>
+    <li>å få dataene dine i et maskinlesbart format (artikkel 20)</li>
+    <li>å protestere (artikkel 21)</li>
+    <li>å trekke samtykket når som helst (artikkel 7)</li>
+  </ul>
+  <p>Skriv til <a href="mailto:post.fuglekort@gmail.com">post.fuglekort@gmail.com</a>, så svarer vi innen en måned. Vi vet ikke hvem du er, så vi trenger brukernavnet ditt for å finne dataene. Vi kan også be deg bekrefte at navnet er ditt, for eksempel ved å bytte til et navn vi foreslår.</p>
+  <p>Mener du at vi behandler personopplysninger i strid med reglene, kan du klage til <a href="https://www.datatilsynet.no/">Datatilsynet</a>.</p>
+
+  <h2 id="slett">Slik sletter du dataene dine</h2>
+  <ul>
+    <li><b>I appen:</b> Innstillinger → Ledertavle og statistikk → «Slett meg fra ledertavlen». Alt du har delt, slettes med en gang, eller så snart du har nett.</li>
+    <li><b>En av flere brukere på telefonen:</b> Innstillinger → Brukere på denne telefonen → Slett.</li>
+    <li><b>Uten appen,</b> for eksempel etter at du har avinstallert den: send e-post til <a href="mailto:post.fuglekort@gmail.com?subject=Slett%20meg">post.fuglekort@gmail.com</a> med emnet «Slett meg» og brukernavnet ditt. Vi sletter innen 30 dager og svarer når det er gjort.</li>
+  </ul>
+  <p>Hva som blir igjen etter en sletting, står under <a href="#lagringstid">Hvor lenge vi lagrer</a>.</p>
+
+  <h2 id="sikkerhet">Sikkerhet</h2>
+  <p>Alt sendes kryptert (HTTPS). Databasen har tilgangsregler, så hver bruker bare kan lese og endre sine egne opplysninger. Det andre kan se, er det åpne som står i tabellen over.</p>
+
+  <h2 id="endringer">Endringer</h2>
+  <p>Endrer vi hva som lagres, oppdaterer vi denne siden og datoen øverst.</p>
+
+  <footer class="liten">Hagefugler · Jakob Myking · <a href="mailto:post.fuglekort@gmail.com">post.fuglekort@gmail.com</a></footer>
+</main>
+</body>
+</html>
