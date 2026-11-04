@@ -32,11 +32,12 @@ DNS hos registraren: A-poster for `@` til 185.199.108.153, 185.199.109.153, 185.
 
 ## Bestillingslisten
 
-Folk setter seg på listen i bestillingsdialogen på forsiden uten å betale. Pris og frakt står øverst i den nye delen av `app.js` (`PRICE`, `SHIPPING`, `GOAL`) og i vilkårene og SQL-fila (visningen `vipps_krav`). Endrer du dem, endrer du alle tre stedene.
+Folk setter seg på listen i bestillingsdialogen på forsiden uten å betale. Pris, frakt og mål står øverst i den nye delen av `app.js` (`PRICE`, `SHIPPING`, `GOAL`, `MAX`) og i vilkårene og SQL-fila (visningen `vipps_krav`). Endrer du dem, endrer du alle tre stedene.
 
-- **Oppsett:** Supabase → SQL Editor → lim inn `supabase/forhandsbestillinger.sql` → Run. Må gjøres før endringen publiseres, ellers virker ikke skjemaet. Fila kan kjøres på nytt.
-- **Se lista:** Supabase → Table Editor → `vipps_krav`. Viser navn, mobil, antall, versjon, levering, beløp (antall × 199 kr + 69 kr ved post) og adresse.
-- **Vipps-krav:** send betalingsforespørsel fra Vipps' bedriftsportal til mobilnummeret, med beløpet fra `vipps_krav`.
+- **Oppsett:** Supabase → SQL Editor → lim inn `supabase/forhandsbestillinger.sql` → Run. Må gjøres før endringen publiseres, ellers virker ikke skjemaet. Fila kan kjøres på nytt, og flytter påmeldinger fra den første versjonen (ett antall og én versjon) over til antall per versjon.
+- **Se lista:** Supabase → Table Editor → `vipps_krav`. Viser navn, mobil, antall av hver versjon, levering, beløp per versjon (antall × 199 kr), frakt (69 kr ved post), `belop_begge` og adresse.
+- **Mål:** 100 kortstokker per versjon. Én påmelding kan ha begge versjonene, opptil 20 av hver.
+- **Vipps-krav:** send betalingsforespørsel fra Vipps' bedriftsportal til mobilnummeret. Blir begge versjonene trykket, bruk `belop_begge`. Blir bare én trykket, bruk beløpet for den versjonen + `frakt`.
 - **Status:** endre `status` i tabellen `forhandsbestillinger` til `betalt`, `sendt` eller `trukket`. Trukne påmeldinger telles ikke med.
 - **Sletting:** påmeldinger som ikke er trykket etter 12 måneder skal slettes, og alt slettes hvis det ikke blir trykk. SQL-en står nederst i fila.
 - **Nettsiden** kan bare legge inn påmeldinger og hente telleren. Navn, e-post, mobil og adresse kan ikke leses derfra.
