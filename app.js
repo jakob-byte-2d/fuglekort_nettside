@@ -1,8 +1,8 @@
-import './fuglekort-box.js';
+import './fuglekort-box.js?v=2';
 const box=document.querySelector('fuglekort-box');
 const viewer=document.querySelector('#viewer'),order=document.querySelector('#order');
 let cards=[],current=0;
-const editionNames={photos:'Ekte bilder',illustrations:'Illustrasjoner for barn'};
+const editionNames={photos:'Ekte bilder',illustrations:'Tegneseriefugler'};
 function showDialog(el){if(!el.open){el.showModal();document.body.classList.add('modal-open')}}
 function showCard(i){if(!cards.length)return;current=(i+cards.length)%cards.length;const c=cards[current];document.querySelector('#large-card').src=c.image;document.querySelector('#large-card').alt=`${c.name} – ${editionNames[box.edition]}`;document.querySelector('#card-counter').textContent=`${c.name} · ${String(current+1).padStart(2,'0')} / ${cards.length} · ${editionNames[box.edition]}`;showDialog(viewer)}
 box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=document.querySelector('#card-rail');rail.replaceChildren();cards.forEach((c,i)=>{const b=document.createElement('button');b.className='card-tile';b.setAttribute('aria-label',`Se kortet for ${c.name}`);b.innerHTML=`<img src="${c.image}" alt="${c.name}" loading="lazy" width="${c.width}" height="${c.height}"><span class="card-label"><span>${c.name}</span><small>${c.number} ↗</small></span>`;b.addEventListener('click',()=>showCard(i));rail.append(b)});
@@ -34,7 +34,7 @@ const delivery=()=>form.elements.levering.value;
 const counts={photos:0,illustrations:0};let touched=false;
 const total=()=>counts.photos+counts.illustrations;
 const rows=[...document.querySelectorAll('.version-row')];
-function chosen(c){const p=[];if(c.photos)p.push(`${c.photos} med ekte bilder`);if(c.illustrations)p.push(`${c.illustrations} med illustrasjoner`);return p.join(' og ')}
+function chosen(c){const p=[];if(c.photos)p.push(`${c.photos} med ekte bilder`);if(c.illustrations)p.push(`${c.illustrations} med tegneseriefugler`);return p.join(' og ')}
 function showCounts(){rows.forEach(r=>{const n=counts[r.dataset.version];r.querySelector('output').textContent=n;r.querySelector('[data-step="-1"]').disabled=n===0;r.querySelector('[data-step="1"]').disabled=n===MAX});updateTotal()}
 function startCounts(){counts.photos=box.edition==='illustrations'?0:1;counts.illustrations=box.edition==='illustrations'?1:0;touched=false;showCounts()}
 rows.forEach(r=>r.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{const k=r.dataset.version;counts[k]=Math.max(0,Math.min(MAX,counts[k]+Number(b.dataset.step)));touched=true;showCounts();if(total())formError.hidden=true})));

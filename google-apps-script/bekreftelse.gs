@@ -49,7 +49,7 @@ function lagEpost(r) {
   const fornavn = String(r.navn || '').trim().split(/\s+/)[0] || 'du';
   const linjer = [];
   if (foto) linjer.push(`${kortstokker(foto)} med ekte bilder: ${kr(foto * PRIS)}`);
-  if (ill) linjer.push(`${kortstokker(ill)} med illustrasjoner for barn: ${kr(ill * PRIS)}`);
+  if (ill) linjer.push(`${kortstokker(ill)} med tegneseriefugler: ${kr(ill * PRIS)}`);
   const levering = post
     ? `Sendes i posten til ${r.adresse}, ${r.postnummer} ${r.poststed}. Frakt: ${kr(FRAKT)}`
     : 'Hentes i Oslo. Tid og sted avtaler vi på e-post';
