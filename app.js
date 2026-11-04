@@ -1,4 +1,4 @@
-import './fuglekort-box.js?v=2';
+import './fuglekort-box.js?v=3';
 const box=document.querySelector('fuglekort-box');
 const viewer=document.querySelector('#viewer'),order=document.querySelector('#order');
 let cards=[],current=0;
