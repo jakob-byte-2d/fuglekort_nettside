@@ -4,11 +4,13 @@ Nettstedet **https://fuglekort.no**, servert med GitHub Pages fra `main`, rot (`
 
 | Sti | Hva |
 |---|---|
-| `/` (`index.html`, `style.css`, `app.js`, `fuglekort-box.js`, `assets/`) | Hjemmesiden: 3D-esken, fem smakebitkort, kilder, appen og personvern. `embed.html` viser bare esken (til iframe). |
+| `/` (`index.html`, `style.css`, `app.js`, `fuglekort-box.js`, `assets/`) | Hjemmesiden: 3D-esken, fem smakebitkort, kilder, appen, personvern og bestillingslisten (dialogen «Sett deg på listen»). `embed.html` viser bare esken (til iframe). |
 | `/app/` | Play-versjonen av Hagefugler (Google Play, TWA med pakkenavnet `no.fuglekort.hagefugler`). **Lages av `build.py --play` i repoet fuglekort; ikke endre den her.** |
-| `/personvern/` | Personvernerklæringen. Lenket fra appen og fra Play-oppføringen. `#slett` er siden Google krever for sletting. |
+| `/personvern/` | Personvernerklæringen for appen og bestillingslisten. Lenket fra appen og fra Play-oppføringen. `#slett` er siden Google krever for sletting, `#bestillingslisten` er delen om lista. |
+| `/vilkar/` | Vilkårene for bestillingslisten: pris, frakt, ingen garanti for trykk, Vipps, angrerett og selgeropplysninger. |
+| `supabase/forhandsbestillinger.sql` | Tabellen, tilgangsreglene, telleren og Vipps-lista for bestillingslisten. Kjøres i Supabase-prosjektet til appen. |
 | `/.well-known/assetlinks.json` | Kobler domenet til Android-appen. Har SHA-256 for opplastingsnøkkelen fra PWABuilder og de tre fra Play Console → Appsignering → «Kopier alle sertifikatfingeravtrykk» (appsigneringsnøklene til Google). Mangler Googles nøkkel, viser appen en adresselinje øverst. Bare gyldige fingeravtrykk i lista. |
-| `side.css` | Stilen til personvernerklæringen, i samme stil som hjemmesiden (bare systemfonter) |
+| `side.css` | Stilen til personvernerklæringen og vilkårene, i samme stil som hjemmesiden (bare systemfonter) |
 | `CNAME` | `fuglekort.no` |
 | `.nojekyll` | Uten den publiserer ikke Pages mappen `.well-known` |
 
@@ -27,3 +29,14 @@ Så commit og push her. Den gamle nettversjonen på jakob-byte-2d.github.io/fugl
 Domenet ligger på dette repoet, ikke på fuglekort-repoet: får et prosjektrepo eget domene, sender GitHub den gamle github.io-adressen videre dit, og brukerne mister dataene sine (de lagres per adresse). Lag heller ikke et `jakob-byte-2d.github.io`-repo med domene; da flytter alle prosjektsidene under det domenet.
 
 DNS hos registraren: A-poster for `@` til 185.199.108.153, 185.199.109.153, 185.199.110.153 og 185.199.111.153, AAAA-poster til 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153 og 2606:50c0:8003::153, CNAME `www` → `jakob-byte-2d.github.io.`, og TXT-posten for verifisering (`_github-pages-challenge-jakob-byte-2d`). Ingen wildcard.
+
+## Bestillingslisten
+
+Folk setter seg på listen i bestillingsdialogen på forsiden uten å betale. Pris og frakt står øverst i den nye delen av `app.js` (`PRICE`, `SHIPPING`, `GOAL`) og i vilkårene og SQL-fila (visningen `vipps_krav`). Endrer du dem, endrer du alle tre stedene.
+
+- **Oppsett:** Supabase → SQL Editor → lim inn `supabase/forhandsbestillinger.sql` → Run. Må gjøres før endringen publiseres, ellers virker ikke skjemaet. Fila kan kjøres på nytt.
+- **Se lista:** Supabase → Table Editor → `vipps_krav`. Viser navn, mobil, antall, versjon, levering, beløp (antall × 199 kr + 69 kr ved post) og adresse.
+- **Vipps-krav:** send betalingsforespørsel fra Vipps' bedriftsportal til mobilnummeret, med beløpet fra `vipps_krav`.
+- **Status:** endre `status` i tabellen `forhandsbestillinger` til `betalt`, `sendt` eller `trukket`. Trukne påmeldinger telles ikke med.
+- **Sletting:** påmeldinger som ikke er trykket etter 12 måneder skal slettes, og alt slettes hvis det ikke blir trykk. SQL-en står nederst i fila.
+- **Nettsiden** kan bare legge inn påmeldinger og hente telleren. Navn, e-post, mobil og adresse kan ikke leses derfra.
