@@ -7,7 +7,7 @@ Nettstedet **https://fuglekort.no**, servert med GitHub Pages fra `main`, rot (`
 | `/` (`index.html`) | Forside med lenke til appen og personvernerklæringen |
 | `/app/` | Play-versjonen av Hagefugler (Google Play, TWA med pakkenavnet `no.fuglekort.hagefugler`). **Lages av `build.py --play` i repoet fuglekort; ikke endre den her.** |
 | `/personvern/` | Personvernerklæringen. Lenket fra appen og fra Play-oppføringen. `#slett` er siden Google krever for sletting. |
-| `/.well-known/assetlinks.json` | Kobler domenet til Android-appen. Fingeravtrykkene (SHA-256) fylles inn fra Play Console → App integrity. |
+| `/.well-known/assetlinks.json` | Kobler domenet til Android-appen. Har SHA-256 for opplastingsnøkkelen fra PWABuilder; fingeravtrykket for «App signing key» fra Play Console → App integrity legges til når appen er lastet opp. Bare gyldige fingeravtrykk i lista. |
 | `side.css` | Stilen til forsiden og personvernerklæringen (fontene fra `/app/fonts/`) |
 | `CNAME` | `fuglekort.no` |
 | `.nojekyll` | Uten den publiserer ikke Pages mappen `.well-known` |

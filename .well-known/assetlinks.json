@@ -5,8 +5,7 @@
       "namespace": "android_app",
       "package_name": "no.fuglekort.hagefugler",
       "sha256_cert_fingerprints": [
-        "PLAY_APP_SIGNING_SHA256_FYLLES_INN",
-        "OPPLASTINGSNOKKEL_SHA256_FYLLES_INN"
+        "33:29:8E:12:D1:A0:77:0C:18:1D:D0:97:AD:29:AF:4A:29:0C:25:15:9F:DB:56:73:B0:B2:7A:8A:DB:E2:D1:DB"
       ]
     }
   }
