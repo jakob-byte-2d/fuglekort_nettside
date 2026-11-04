@@ -13,7 +13,7 @@ box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=docu
 });
 document.querySelectorAll('[data-edition]').forEach(b=>b.addEventListener('click',()=>box.setEdition(b.dataset.edition)));
 box.addEventListener('inspect-card',e=>showCard(e.detail.index));
-document.querySelector('#explore').addEventListener('click',()=>{box.toggle(true);if(innerWidth<760)box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'})});
+document.querySelector('#explore')?.addEventListener('click',()=>{box.toggle(true);if(innerWidth<760)box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'})});
 document.querySelectorAll('[data-order]').forEach(b=>b.addEventListener('click',()=>showDialog(order)));
 document.querySelectorAll('dialog').forEach(d=>{d.querySelector('[data-close]').addEventListener('click',()=>d.close());d.addEventListener('close',()=>{document.body.classList.remove('modal-open')});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}})});
 viewer.querySelector('.prev').addEventListener('click',()=>showCard(current-1));viewer.querySelector('.next').addEventListener('click',()=>showCard(current+1));
@@ -25,7 +25,7 @@ document.querySelector('#back-explore').addEventListener('click',()=>{order.clos
 /* Bestillingslisten: påmeldingen lagres i Supabase (tabellen i supabase/forhandsbestillinger.sql).
    Nettsiden kan bare legge inn påmeldinger og hente tellertallene, aldri lese navn, e-post eller mobil. */
 const SUPA={url:'https://qfustbltxgbpwsntcrpd.supabase.co',key:'sb_publishable_tQmgTjIyvYtMLJRL3o2Vaw_o2sYYpYt'};
-const PRICE=199,SHIPPING=69,GOAL=100,MAX=20,CONTACT='post.fuglekort@gmail.com';
+const PRICE=199,SHIPPING=69,GOAL=100,MAX=20,SHOW_FROM=25,CONTACT='post.fuglekort@gmail.com';   // SHOW_FROM: tellerne på forsiden vises fra dette antallet
 const form=document.querySelector('#order-form'),formError=document.querySelector('#form-error'),submit=document.querySelector('#order-submit');
 const kr=n=>`${n.toLocaleString('nb-NO')} kr`;
 const decks=n=>`${n} kortstokk${n===1?'':'er'}`;
@@ -46,10 +46,22 @@ form.addEventListener('change',e=>{if(e.target.name==='levering')updateTotal()})
 startCounts();
 
 function supa(path,body,headers={}){return fetch(SUPA.url+path,{method:'POST',headers:{apikey:SUPA.key,'Content-Type':'application/json',...headers},body:JSON.stringify(body)})}
-async function loadProgress(){try{const r=await supa('/rest/v1/rpc/forhandsbestilling_status',{});if(!r.ok)return;const s=await r.json(),goal=Number(s.mal)||GOAL;
+async function fetchStatus(){try{const r=await supa('/rest/v1/rpc/forhandsbestilling_status',{});return r.ok?await r.json():null}catch(e){return null}}
+const counted=(n,goal)=>n>=goal?`${n} bestilt. Målet er nådd!`:`${n} av ${goal} bestilt`;
+/* Forsiden: en versjon vises først når den har minst SHOW_FROM bestilte kortstokker */
+function renderHero(s){const box=document.querySelector('#hero-progress'),goal=Number(s.mal)||GOAL;
+ const items=[['Ekte bilder',Number(s.foto)||0],['Tegneseriefugler',Number(s.illustrasjoner)||0]].filter(([,n])=>n>=SHOW_FROM);
+ box.replaceChildren(...items.map(([name,n])=>{const row=document.createElement('div');row.className='hero-count';
+  const label=document.createElement('strong');label.textContent=name;
+  const bar=document.createElement('div');bar.className='progress-bar';bar.setAttribute('role','progressbar');bar.setAttribute('aria-label',`Bestilt med ${name.toLowerCase()}`);bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax',String(goal));bar.setAttribute('aria-valuenow',String(Math.min(goal,n)));
+  const fill=document.createElement('span');fill.style.width=`${Math.min(100,n/goal*100)}%`;bar.append(fill);
+  const small=document.createElement('small');small.textContent=counted(n,goal);row.append(label,bar,small);return row}));
+ box.hidden=!items.length}
+fetchStatus().then(s=>{if(s)renderHero(s)});
+async function loadProgress(){const s=await fetchStatus();if(!s)return;const goal=Number(s.mal)||GOAL;renderHero(s);
  rows.forEach(row=>{const n=Number(s[row.dataset.version==='photos'?'foto':'illustrasjoner'])||0,prog=row.querySelector('.version-progress'),bar=prog.querySelector('.progress-bar');
   bar.querySelector('span').style.width=`${Math.min(100,n/goal*100)}%`;bar.setAttribute('aria-valuemax',String(goal));bar.setAttribute('aria-valuenow',String(Math.min(goal,n)));
-  prog.querySelector('small').textContent=n>=goal?`${n} bestilt. Målet er nådd!`:`${n} av ${goal} bestilt`;prog.hidden=false})}catch(e){}}
+  prog.querySelector('small').textContent=counted(n,goal);prog.hidden=false})}
 document.querySelectorAll('[data-order]').forEach(b=>b.addEventListener('click',loadProgress));
 
 const phone=v=>v.replace(/[\s.()-]/g,'').replace(/^(\+47|0047)/,'');
@@ -85,3 +97,9 @@ form.addEventListener('submit',async e=>{e.preventDefault();clearError();
   else showError(`Påmeldingen ble ikke lagret. Prøv igjen, eller skriv til ${CONTACT}.`)}
  catch(x){showError('Fikk ikke kontakt. Sjekk nettet og prøv igjen.')}
  finally{submit.disabled=false;submit.firstChild.textContent='Sett meg på listen '}});
+
+/* «Mer om kortene»: lenker til et lukket felt (for eksempel #kilder i bunnteksten) åpner feltet */
+function openDetails(id){const d=id&&document.getElementById(id);if(d&&d.tagName==='DETAILS'){d.open=true;return d}return null}
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>openDetails(a.getAttribute('href').slice(1))));
+addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));
+{const d=openDetails(location.hash.slice(1));if(d)requestAnimationFrame(()=>d.scrollIntoView())}
