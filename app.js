@@ -1,4 +1,4 @@
-import './fuglekort-box.js?v=2';
+import './fuglekort-box.js?v=4';
 const box=document.querySelector('fuglekort-box');
 const viewer=document.querySelector('#viewer'),order=document.querySelector('#order');
 let cards=[],current=0;
@@ -13,6 +13,8 @@ box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=docu
 });
 document.querySelectorAll('[data-edition]').forEach(b=>b.addEventListener('click',()=>box.setEdition(b.dataset.edition)));
 box.addEventListener('inspect-card',e=>showCard(e.detail.index));
+/* Mobil: esken vet hvor langt ned på siden den står, så hele esken får plass på første skjermbilde */
+function placeBox(){box.style.setProperty('--above',`${Math.round(box.getBoundingClientRect().top+scrollY)}px`)}placeBox();addEventListener('resize',placeBox);
 document.querySelector('#explore')?.addEventListener('click',()=>{box.toggle(true);if(innerWidth<760)box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'})});
 document.querySelectorAll('[data-order]').forEach(b=>b.addEventListener('click',()=>showDialog(order)));
 document.querySelectorAll('dialog').forEach(d=>{d.querySelector('[data-close]').addEventListener('click',()=>d.close());d.addEventListener('close',()=>{document.body.classList.remove('modal-open')});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}})});
