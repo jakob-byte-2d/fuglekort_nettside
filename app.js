@@ -105,3 +105,8 @@ function openDetails(id){const d=id&&document.getElementById(id);if(d&&d.tagName
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>openDetails(a.getAttribute('href').slice(1))));
 addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));
 {const d=openDetails(location.hash.slice(1));if(d)requestAnimationFrame(()=>d.scrollIntoView())}
+
+/* «Få appen gratis»: på iPhone og Android vises først hvordan man legger appen på hjemskjermen. PC og nettbrett går rett til appen. */
+{const guide=document.querySelector('#app-guide'),ua=navigator.userAgent;
+ const os=/iPhone|iPod/.test(ua)?'ios':(/Android/.test(ua)&&/Mobile/.test(ua)?'android':null);
+ document.querySelector('#app-link')?.addEventListener('click',e=>{if(!os||!guide)return;e.preventDefault();guide.dataset.os=os;showDialog(guide)})}
