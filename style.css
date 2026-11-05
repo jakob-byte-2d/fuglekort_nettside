@@ -38,3 +38,6 @@
 /* Undertekst under overskriften */
 .hero-sub{font-size:19px;line-height:1.4;color:#4c5b54;margin:16px 0 0;letter-spacing:.1px}
 @media(max-width:760px){.hero-copy>.hero-sub{order:2;font-size:17px;margin:6px 0 0}.hero>.product{margin-top:6px}}
+/* Skille mellom toppen og smakebiten, med mindre luft */
+.section-line{border:0;border-top:1px solid var(--line);margin:0 5.4%;height:0}.hero{padding-bottom:40px}.section-line+.collection{padding-top:56px}
+@media(max-width:760px){.section-line{margin:0 6%}.hero{padding-bottom:30px}.section-line+.collection{padding-top:34px}}
