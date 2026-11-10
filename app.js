@@ -106,9 +106,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));
 {const d=openDetails(location.hash.slice(1));if(d)requestAnimationFrame(()=>d.scrollIntoView())}
 
-/* «For iPhone» og Google Play: iPhone ser bare «For iPhone», som viser hvordan man legger appen på hjemskjermen;
-   Android-telefoner ser bare Google Play-merket; PC og nettbrett ser begge, og «For iPhone» går der rett til appen. */
+/* «For iPhone» og Google Play-merket vises for alle, så alle ser at appen finnes for begge. «For iPhone» viser på
+   telefoner hvordan man legger appen på Hjem-skjermen på iPhone; PC og nettbrett går rett til appen. */
 {const guide=document.querySelector('#app-guide'),ua=navigator.userAgent;
- const os=/iPhone|iPod/.test(ua)?'ios':(/Android/.test(ua)&&/Mobile/.test(ua)?'android':null);
- const knapper=document.querySelector('.app-buttons');if(knapper&&os)knapper.dataset.os=os;
- document.querySelector('#app-link')?.addEventListener('click',e=>{if(!os||!guide)return;e.preventDefault();guide.dataset.os=os;showDialog(guide)})}
+ const telefon=/iPhone|iPod/.test(ua)||(/Android/.test(ua)&&/Mobile/.test(ua));
+ document.querySelector('#app-link')?.addEventListener('click',e=>{if(!telefon||!guide)return;e.preventDefault();showDialog(guide)})}
