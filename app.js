@@ -106,7 +106,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));
 {const d=openDetails(location.hash.slice(1));if(d)requestAnimationFrame(()=>d.scrollIntoView())}
 
-/* «Få appen gratis»: på iPhone og Android vises først hvordan man legger appen på hjemskjermen. PC og nettbrett går rett til appen. */
+/* «For iPhone» og Google Play: iPhone ser bare «For iPhone», som viser hvordan man legger appen på hjemskjermen;
+   Android-telefoner ser bare Google Play-merket; PC og nettbrett ser begge, og «For iPhone» går der rett til appen. */
 {const guide=document.querySelector('#app-guide'),ua=navigator.userAgent;
  const os=/iPhone|iPod/.test(ua)?'ios':(/Android/.test(ua)&&/Mobile/.test(ua)?'android':null);
+ const knapper=document.querySelector('.app-buttons');if(knapper&&os)knapper.dataset.os=os;
  document.querySelector('#app-link')?.addEventListener('click',e=>{if(!os||!guide)return;e.preventDefault();guide.dataset.os=os;showDialog(guide)})}
